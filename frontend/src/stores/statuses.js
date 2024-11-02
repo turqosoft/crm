@@ -5,43 +5,10 @@ import { createListResource } from 'frappe-ui'
 import { reactive, h } from 'vue'
 
 export const statusesStore = defineStore('crm-statuses', () => {
-  let leadStatusesByName = reactive({})
-  let dealStatusesByName = reactive({})
+
   let communicationStatusesByName = reactive({})
 
-  const leadStatuses = createListResource({
-    doctype: 'CRM Lead Status',
-    fields: ['name', 'color', 'position'],
-    orderBy: 'position asc',
-    cache: 'lead-statuses',
-    initialData: [],
-    auto: true,
-    transform(statuses) {
-      for (let status of statuses) {
-        status.colorClass = colorClasses(status.color)
-        status.iconColorClass = colorClasses(status.color, true)
-        leadStatusesByName[status.name] = status
-      }
-      return statuses
-    },
-  })
 
-  const dealStatuses = createListResource({
-    doctype: 'CRM Deal Status',
-    fields: ['name', 'color', 'position'],
-    orderBy: 'position asc',
-    cache: 'deal-statuses',
-    initialData: [],
-    auto: true,
-    transform(statuses) {
-      for (let status of statuses) {
-        status.colorClass = colorClasses(status.color)
-        status.iconColorClass = colorClasses(status.color, true)
-        dealStatusesByName[status.name] = status
-      }
-      return statuses
-    },
-  })
 
   const communicationStatuses = createListResource({
     doctype: 'CRM Communication Status',
@@ -70,19 +37,9 @@ export const statusesStore = defineStore('crm-statuses', () => {
     return [textColor, onlyIcon ? '' : bgColor]
   }
 
-  function getLeadStatus(name) {
-    if (!name) {
-      name = leadStatuses.data[0].name
-    }
-    return leadStatusesByName[name]
-  }
 
-  function getDealStatus(name) {
-    if (!name) {
-      name = dealStatuses.data[0].name
-    }
-    return dealStatusesByName[name]
-  }
+
+
 
   function getCommunicationStatus(name) {
     if (!name) {
@@ -121,11 +78,9 @@ export const statusesStore = defineStore('crm-statuses', () => {
   }
 
   return {
-    leadStatuses,
-    dealStatuses,
+
     communicationStatuses,
-    getLeadStatus,
-    getDealStatus,
+
     getCommunicationStatus,
     statusOptions,
   }
