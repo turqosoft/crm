@@ -88,16 +88,9 @@ import {
   DialogOverlay,
 } from '@headlessui/vue'
 import Section from '@/components/Section.vue'
-import Email2Icon from '@/components/Icons/Email2Icon.vue'
-import PinIcon from '@/components/Icons/PinIcon.vue'
 import UserDropdown from '@/components/UserDropdown.vue'
-import LeadsIcon from '@/components/Icons/LeadsIcon.vue'
-import DealsIcon from '@/components/Icons/DealsIcon.vue'
-import ContactsIcon from '@/components/Icons/ContactsIcon.vue'
-import OrganizationsIcon from '@/components/Icons/OrganizationsIcon.vue'
 import NoteIcon from '@/components/Icons/NoteIcon.vue'
 import TaskIcon from '@/components/Icons/TaskIcon.vue'
-import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
 import NotificationsIcon from '@/components/Icons/NotificationsIcon.vue'
 import SidebarLink from '@/components/SidebarLink.vue'
 import { viewsStore } from '@/stores/views'
@@ -109,26 +102,6 @@ const { getPinnedViews, getPublicViews } = viewsStore()
 
 const links = [
   {
-    label: 'Leads',
-    icon: LeadsIcon,
-    to: 'Leads',
-  },
-  {
-    label: 'Deals',
-    icon: DealsIcon,
-    to: 'Deals',
-  },
-  {
-    label: 'Contacts',
-    icon: ContactsIcon,
-    to: 'Contacts',
-  },
-  {
-    label: 'Organizations',
-    icon: OrganizationsIcon,
-    to: 'Organizations',
-  },
-  {
     label: 'Notes',
     icon: NoteIcon,
     to: 'Notes',
@@ -137,16 +110,6 @@ const links = [
     label: 'Tasks',
     icon: TaskIcon,
     to: 'Tasks',
-  },
-  {
-    label: 'Call Logs',
-    icon: PhoneIcon,
-    to: 'Call Logs',
-  },
-  {
-    label: 'Email Templates',
-    icon: Email2Icon,
-    to: 'Email Templates',
   },
 ]
 
@@ -195,18 +158,8 @@ function getIcon(routeName, icon) {
   if (icon) return h('div', { class: 'size-auto' }, icon)
 
   switch (routeName) {
-    case 'Leads':
-      return LeadsIcon
-    case 'Deals':
-      return DealsIcon
-    case 'Contacts':
-      return ContactsIcon
-    case 'Organizations':
-      return OrganizationsIcon
     case 'Notes':
       return NoteIcon
-    case 'Call Logs':
-      return PhoneIcon
     default:
       return PinIcon
   }

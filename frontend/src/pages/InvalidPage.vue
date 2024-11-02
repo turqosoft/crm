@@ -4,14 +4,15 @@
   >
     <div class="space-y-2">
       <div>Invalid page or not permitted to access</div>
-      <Button :route="{ name: 'Leads' }">
-        <template #prefix><LeadsIcon class="w-4" /></template>
-        Leads
+      <Button :route="{ name: 'Tasks' }">
+        <template #prefix><TaskIcon class="w-4" /></template>
+        Tasks
       </Button>
     </div>
   </div>
 </template>
 
+
 <script setup>
-import LeadsIcon from '@/components/Icons/LeadsIcon.vue'
+import TaskIcon from '@/components/Icons/TaskIcon.vue'
 </script>

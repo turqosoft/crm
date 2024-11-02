@@ -5,7 +5,7 @@ import { sessionStore } from '@/stores/session'
 const routes = [
   {
     path: '/',
-    redirect: { name: 'Leads' },
+    redirect: { name: 'Tasks' },
     name: 'Home',
   },
   {

@@ -71,32 +71,14 @@ const user = computed(() => getUser() || {})
 const showSettingsModal = ref(false)
 
 let dropdownOptions = ref([
-  {
-    group: 'Manage',
-    hideLabel: true,
-    items: [
-      {
-        component: markRaw(Apps),
-      },
-      {
-        icon: 'life-buoy',
-        label: computed(() => __('Support')),
-        onClick: () => window.open('https://t.me/frappecrm', '_blank'),
-      },
-      {
-        icon: 'book-open',
-        label: computed(() => __('Docs')),
-        onClick: () => window.open('https://docs.frappe.io/crm', '_blank'),
-      },
-    ],
-  },
+
   {
     group: 'Others',
     hideLabel: true,
     items: [
       {
         icon: 'settings',
-        label: computed(() => __('Settings')),
+        label: computed(() => __('Profile')),
         onClick: () => (showSettingsModal.value = true),
       },
       {
