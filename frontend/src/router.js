@@ -13,19 +13,7 @@ const routes = [
     name: 'Notifications',
     component: () => import('@/pages/MobileNotification.vue'),
   },
-  {
-    alias: '/leads',
-    path: '/leads/view/:viewType?',
-    name: 'Leads',
-    component: () => import('@/pages/Leads.vue'),
-    meta: { scrollPos: { top: 0, left: 0 } },
-  },
-  {
-    path: '/leads/:leadId',
-    name: 'Lead',
-    component: () => import(`@/pages/${handleMobileView('Lead')}.vue`),
-    props: true,
-  },
+
   
   {
     alias: '/notes',
