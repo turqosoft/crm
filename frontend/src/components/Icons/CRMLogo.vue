@@ -15,7 +15,7 @@
     <text style="white-space: pre; fill: rgb(64, 224, 208); font-family: Arial, sans-serif; font-size: 250px;" x="26.256" y="241.03">t</text>
     <text style="white-space: pre; fill: rgb(255, 255, 255); font-family: Arial, sans-serif; font-size: 255px;" x="89.148" y="231.668" transform="matrix(1.062127, 0, 0, 1.031312, -14.968895, 5.505346)">Q</text>
 
-
+    <ellipse style="stroke: rgb(0, 0, 0); fill: rgb(64, 224, 208);" cx="279.243" cy="218.925" rx="15.486" ry="15.486"/>
     
   </svg>
   
