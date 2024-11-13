@@ -127,6 +127,31 @@ const links = [
     icon: TaskIcon,
     to: 'Tasks',
   },
+  {
+    label: 'Items',
+    icon: TaskIcon,
+    to: 'Items',
+  },
+  {
+    label: 'Price Update',
+    icon: NoteIcon,
+    to: 'Price Update',
+  },
+  {
+    label: 'Material Request',
+    icon: TaskIcon,
+    to: 'Material Request',
+  },
+  {
+    label: 'Stock Update',
+    icon: TaskIcon,
+    to: 'Stock',
+  },
+  {
+    label: 'Requirements',
+    icon: TaskIcon,
+    to: 'Requirements',
+  },
 ]
 
 const allViews = computed(() => {

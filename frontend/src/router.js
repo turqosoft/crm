@@ -28,6 +28,69 @@ const routes = [
     component: () => import('@/pages/Tasks.vue'),
   },
   {
+    alias: '/items',
+    path: '/items/view/:viewType?',
+    name: 'Items',
+    component: () => import('@/pages/Items.vue'),
+  },
+  {
+    alias: '/stock',
+    path: '/stock/view/:viewType?',
+    name: 'Stock',  // Make sure this is a string
+    component: () => import('@/pages/stock/Stock.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } },
+  },
+  {
+    path: '/create-stock/:courseName',
+    name: 'CreateStock',
+    component: () => import('@/pages/stock/CreateStock.vue'),
+    // component: CreateStockComponent, // replace with actual component
+    meta: { scrollPos: { top: 0, left: 0 } },
+    // props: true
+  },
+  {
+    alias: '/PriceUpdate',
+    path: '/PriceUpdate/view/:viewType?',
+    name: 'Price Update', // Ensure this matches exactly
+    component: () => import('@/pages/buying/PriceUpdate.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } }
+  }, 
+  {
+    path: '/update-price/:courseName',
+    name: 'UpdatePrice',
+    component: () => import('@/pages/buying/UpdatePrice.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } },
+    // props: true
+  },
+  {
+    alias: '/Material',
+    path: '/Material/view/:viewType?',  // Optional parameter "viewType"
+    name: 'Material',  // Unique route name for Material.vue
+    component: () => import('@/pages/stock/Material.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } }
+  },
+  {
+    path: '/material-request/:courseName?',  // Optional parameter "courseName"
+    name: 'Material Request',  // Unique route name for MaterialRequest.vue
+    component: () => import('@/pages/stock/MaterialRequest.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } },
+    props: true
+  },
+  {
+    alias: '/Requirements',  // Alias for DeliveryNote
+    path: '/Requirements/view/:viewType?', 
+    name: 'Requirements',  // Unique route name for DeliveryNote.vue
+    component: () => import('@/pages/Requirements.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } }
+  },
+  {
+    path: '/create-requirement/:courseName?',
+    name: 'CreateRequirement',
+    component: () => import('@/pages/CreateRequirement.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } },
+    props: true,  // Pass route params as props to the component (if any)
+  },
+  {
     path: '/:invalidpath',
     name: 'Invalid Page',
     component: () => import('@/pages/InvalidPage.vue'),

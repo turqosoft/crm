@@ -291,3 +291,20 @@ export function isImage(extention) {
     extention.toLowerCase(),
   )
 }
+
+export function showToast(title, text, icon, iconClasses = null) {
+	if (!iconClasses) {
+		iconClasses =
+			icon == 'check'
+				? 'bg-green-600 text-white rounded-md p-px'
+				: 'bg-red-600 text-white rounded-md p-px'
+	}
+	createToast({
+		title: title,
+		text: htmlToText(text),
+		icon: icon,
+		iconClasses: iconClasses,
+		position: icon == 'check' ? 'bottom-right' : 'top-center',
+		timeout: 5,
+	})
+}
