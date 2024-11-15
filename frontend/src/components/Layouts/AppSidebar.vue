@@ -140,7 +140,7 @@ const links = [
   {
     label: 'Material Request',
     icon: TaskIcon,
-    to: 'Material Request',
+    to: 'Material',
   },
   {
     label: 'Stock Update',
