@@ -3,7 +3,7 @@
     :columns="columns"
     :rows="rows"
     :options="{
-      onRowClick: (row) => emit('showTask', row.name),
+      onRowClick: (row) => emit('showItem', row.name),
       selectable: options.selectable,
       showTooltip: options.showTooltip,
       resizeColumn: options.resizeColumn,
@@ -181,7 +181,7 @@ const props = defineProps({
 const emit = defineEmits([
   'loadMore',
   'updatePageCount',
-  'showTask',
+  'showItem',
   'columnWidthUpdated',
   'applyFilter',
   'applyLikeFilter',

@@ -31,7 +31,7 @@ const routes = [
     alias: '/items',
     path: '/items/view/:viewType?',
     name: 'Items',
-    component: () => import('@/pages/Items.vue'),
+    component: () => import('@/pages/stock/Items.vue'),
   },
   {
     alias: '/stock',
@@ -71,7 +71,7 @@ const routes = [
   },
   {
     path: '/material-request/:courseName?',  // Optional parameter "courseName"
-    name: 'Material Request',  // Unique route name for MaterialRequest.vue
+    name: 'MaterialRequest',  // Unique route name for MaterialRequest.vue
     component: () => import('@/pages/stock/MaterialRequest.vue'),
     meta: { scrollPos: { top: 0, left: 0 } },
     props: true
@@ -79,18 +79,25 @@ const routes = [
   {
     alias: '/Requirements',  // Alias for DeliveryNote
     path: '/Requirements/view/:viewType?', 
-    name: 'Requirements',  // Unique route name for DeliveryNote.vue
-    component: () => import('@/pages/Requirements.vue'),
+    name: 'Requirements',  
+    component: () => import('@/pages/selling/Requirements.vue'),
     meta: { scrollPos: { top: 0, left: 0 } }
   },
   {
     path: '/create-requirement/:courseName?',
     name: 'CreateRequirement',
-    component: () => import('@/pages/CreateRequirement.vue'),
+    component: () => import('@/pages/selling/CreateRequirement.vue'),
     meta: { scrollPos: { top: 0, left: 0 } },
     props: true,  // Pass route params as props to the component (if any)
   },
   {
+    alias: '/DeliveryNote',  // Alias for Delivery Note
+    path: '/DeliveryNote/view/:viewType?',
+    name: 'DeliveryNote', // Unique route name for DeliveryNote.vue
+    component: () => import('@/pages/selling/DeliveryNote.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } }
+  },
+   {
     path: '/:invalidpath',
     name: 'Invalid Page',
     component: () => import('@/pages/InvalidPage.vue'),

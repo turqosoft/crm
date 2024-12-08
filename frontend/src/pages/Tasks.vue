@@ -24,6 +24,7 @@
       allowedViews: ['list', 'kanban'],
     }"
   />
+  
   <KanbanView
     v-if="$route.params.viewType == 'kanban' && rows.length"
     v-model="tasks"

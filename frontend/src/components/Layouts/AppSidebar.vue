@@ -132,26 +132,31 @@ const links = [
     icon: TaskIcon,
     to: 'Items',
   },
-  {
-    label: 'Price Update',
-    icon: NoteIcon,
-    to: 'Price Update',
-  },
-  {
-    label: 'Material Request',
-    icon: TaskIcon,
-    to: 'Material',
-  },
-  {
-    label: 'Stock Update',
-    icon: TaskIcon,
-    to: 'Stock',
-  },
-  {
-    label: 'Requirements',
-    icon: TaskIcon,
-    to: 'Requirements',
-  },
+  // {
+  //   label: 'Price Update',
+  //   icon: NoteIcon,
+  //   to: 'Price Update',
+  // },
+  // {
+  //   label: 'Material Request',
+  //   icon: TaskIcon,
+  //   to: 'Material',
+  // },
+  // {
+  //   label: 'Stock Update',
+  //   icon: TaskIcon,
+  //   to: 'Stock',
+  // },
+  // {
+  //   label: 'Requirements',
+  //   icon: TaskIcon,
+  //   to: 'Requirements',
+  // },
+  // {
+  //   label: 'Sales Return',
+  //   icon: TaskIcon,
+  //   to: 'DeliveryNote',
+  // },
 ]
 
 const allViews = computed(() => {
