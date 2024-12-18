@@ -4,16 +4,16 @@
 
     <form @submit.prevent="submitForm" class="space-y-6">
       <!-- Delivery Note Name -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <label class="block text-sm font-medium mb-2" for="name">{{ __('Delivery Note Name') }}</label>
         <input id="name" v-model="formData.name" type="text" class="border p-3 w-full rounded" readonly />
-      </div>
+      </div> -->
 
       <!-- Customer Details -->
-      <div class="mb-4">
+      <!-- <div class="mb-4">
         <label class="block text-sm font-medium mb-2" for="customer">{{ __('Customer') }}</label>
         <input id="customer" v-model="formData.customer" type="text" class="border p-3 w-full rounded" readonly />
-      </div>
+      </div> -->
 
       <!-- Delivery Details -->
       <div class="mb-4">
@@ -41,7 +41,7 @@
                 <input v-model.number="item.qty" type="number" class="border p-2 rounded w-full" />
               </td>
               <td class="border p-3">
-                <input v-model.number="item.rate" type="number" class="border p-2 rounded w-full" />
+              <input v-model.number="item.rate" type="number" class="border p-2 rounded w-full" :disabled="true" />
               </td>
             </tr>
             <tr v-if="!formData.items.length">
@@ -50,8 +50,6 @@
           </tbody>
         </table>
       </div>
-
-
       <!-- Submit/Close Buttons -->
       <div class="mt-6 flex justify-between items-center">
         <!-- Update Button -->

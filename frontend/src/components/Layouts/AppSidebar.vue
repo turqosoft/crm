@@ -157,6 +157,11 @@ const links = [
   //   icon: TaskIcon,
   //   to: 'DeliveryNote',
   // },
+  {
+    label: 'Material Demand',
+    icon: TaskIcon,
+    to: 'MaterialDemandList',
+  },
 ]
 
 const allViews = computed(() => {

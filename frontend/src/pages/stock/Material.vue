@@ -1,11 +1,11 @@
 <template>
   <div class="p-4">
     <header class="sticky top-0 z-10 flex items-center justify-between border-b bg-white shadow-sm px-4 py-3">
-      <!-- Breadcrumbs for Material List -->
-      <!-- <Breadcrumbs
-        class="h-7"
-        :items="[{ label: __('MaterialList'), route: { name: 'MaterialList' } }]"
-      /> -->
+      <!-- Navigation or Section Header (without breadcrumbs) -->
+      <div class="text-lg font-semibold text-gray-800">
+        {{ __('Material List') }}
+      </div>
+
       <div class="flex space-x-2 justify-end">
         <!-- Button to navigate to Material Request update page -->
         <router-link

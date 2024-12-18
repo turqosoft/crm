@@ -97,6 +97,20 @@ const routes = [
     component: () => import('@/pages/selling/DeliveryNote.vue'),
     meta: { scrollPos: { top: 0, left: 0 } }
   },
+  {
+    alias: '/MaterialDemandList',
+    path: '/MaterialDemandList/view/:viewType?',  // Optional parameter "viewType"
+    name: 'MaterialDemandList',  // Unique route name for MaterialList.vue
+    component: () => import('@/pages/selling/MaterialDemandList.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } }
+  },
+  {
+    path: '/material-demand/:courseName?',  // Optional parameter "courseName"
+    name: 'MaterialDemand',  // Unique route name for MaterialRequest.vue
+    component: () => import('@/pages/selling/MaterialDemand.vue'),
+    meta: { scrollPos: { top: 0, left: 0 } },
+    props: true  // Pass route params as props to the component
+  },
    {
     path: '/:invalidpath',
     name: 'Invalid Page',

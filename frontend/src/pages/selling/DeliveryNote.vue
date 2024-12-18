@@ -90,6 +90,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script setup>
 import { ref, onMounted, watch } from 'vue';
@@ -98,6 +99,7 @@ import DeliveryNoteForm from './DeliveryNoteForm.vue';
 const deliveryNotes = ref([]);
 const isModalOpen = ref(false);
 const selectedNote = ref(null);
+const updateDeliveryNote= ref([]);
 
 // Filters object to bind to the input field
 const filters = ref({
@@ -130,7 +132,7 @@ watch(filters, () => {
 const getLoggedInUser = async () => {
   try {
     // Fetch logged-in user and customer info from the backend method
-    const response = await fetch('/api/method/tqerp_horticorp.tqerp_horticorp.utils.get_logged_user_info');
+    const response = await fetch('/api/method/tqerp_horticorp.tqerp_horticorp.utils.get_logged_user_with_customer_info');
     const data = await response.json();
 
     if (data.message) {
@@ -298,6 +300,7 @@ const updateDeliveryNoteHandler = async (updatedNoteData) => {
       }
 
       console.log(`Sales Return ${selectedNote.value.name} updated successfully.`);
+      showToast('Sales Return updated successfully!', 'success'); // Show success message
     } else {
       // Check if a return note already exists for the selected delivery note
       const checkResponse = await fetch(
@@ -343,6 +346,7 @@ const updateDeliveryNoteHandler = async (updatedNoteData) => {
         }
 
         console.log(`Return note ${existingReturnNote.name} updated successfully.`);
+        showToast('Return note updated successfully!', 'success'); // Show success message
       } else {
         // No return note exists, create a new one
         const newReturnNoteData = {
@@ -365,6 +369,7 @@ const updateDeliveryNoteHandler = async (updatedNoteData) => {
         }
 
         console.log('New return note created successfully.');
+        showToast('New return note created successfully!', 'success'); // Show success message
       }
     }
 
@@ -373,8 +378,22 @@ const updateDeliveryNoteHandler = async (updatedNoteData) => {
     fetchDeliveryNotes();
   } catch (error) {
     console.error('Error handling delivery note update:', error);
+    showToast('Error handling delivery note update.', 'error'); // Show error message
   }
 };
+
+// Assuming showToast function is defined elsewhere for notifications
+function showToast(message, type) {
+  // Example implementation of showToast (customize as needed)
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.remove();
+  }, 3000); // Toast will disappear after 3 seconds
+}
 
 const changePage = (newPage) => {
   if (newPage < 1 || newPage > totalPages.value) return;

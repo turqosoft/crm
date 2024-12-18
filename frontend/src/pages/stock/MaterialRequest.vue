@@ -2,7 +2,7 @@
   <div>
     <!-- Header with Breadcrumbs and Save Button -->
     <header class="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-3 py-2.5 sm:px-5">
-      <!-- <Breadcrumbs class="h-7" :items="breadcrumbs" /> -->
+      <Breadcrumbs class="h-7" :items="breadcrumbs" />
       <Button variant="solid" @click="submitForm">
         {{ __('Save Request') }}
       </Button>
@@ -55,7 +55,7 @@
             v-model="defaultWarehouse"
             type="text"
             class="border p-2 rounded w-full"
-            v-show="false"
+            v-show=false
             disabled
           />
 

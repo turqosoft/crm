@@ -2,11 +2,22 @@
   <div>
     <!-- Header Section -->
     <header class="sticky top-0 z-10 flex items-center justify-between border-b bg-white px-3 py-2.5 sm:px-5">
-      <Breadcrumbs class="h-7" :items="breadcrumbs" />
-      <Button variant="solid" @click="saveStock">
-        {{ __('Save') }}
-      </Button>
-    </header>
+  <!-- Navigation Links or Items -->
+  <div class="flex items-center space-x-2">
+    <span v-for="(item, index) in navigationItems" :key="index" class="text-sm text-gray-700">
+      <span>{{ item.name }}</span>
+      <span v-if="index < navigationItems.length - 1" class="mx-2">/</span>
+    </span>
+  </div>
+
+  <!-- Save Button Section -->
+  <div>
+    <Button variant="solid" @click="saveStock">
+      {{ __('Save') }}
+    </Button>
+  </div>
+</header>
+
 
     <!-- Main Content -->
     <div class="w-full max-w-4xl mx-auto py-5">
@@ -20,8 +31,8 @@
               <div class="flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
                 <FormControl
                   v-model="searchQuery"
-                  :label="__('Search Item Group')"
-                  placeholder="Enter item group name..."
+                  :label="__('Search Item')"
+                  placeholder="Enter item..."
                   @input="searchItemGroup"
                 />
               </div>
@@ -213,10 +224,10 @@ const reconciliationData = reactive({
   purpose: 'Stock Reconciliation',
   items: [],
 })
-
+const searchItemGroup=ref([])
 // Reactive state for current tab
 const currentTab = ref('itemDetails')
-
+const navigationItems=ref([])
 // Reactive state for item details
 const itemDetails = ref([])
 
