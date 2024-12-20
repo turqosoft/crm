@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <!-- Header Section -->
@@ -321,22 +322,27 @@ const saveStock = async () => {
 
     // Update the current_qty in itemDetails to reflect the remaining quantity after wastage
     reconciliationData.items.forEach(item => {
-      const index = itemDetails.value.findIndex(i => i.item_code === item.item_code)
+      const index = itemDetails.value.findIndex(i => i.item_code === item.item_code);
       if (index !== -1) {
-        const originalQty = itemDetails.value[index].actual_qty // Assuming this holds the original qty
-        const updatedQty = originalQty - item.wastage_qty // Calculate updated quantity after wastage
-        itemDetails.value[index].actual_qty = updatedQty // Update actual_qty in itemDetails
-        console.log(`Updated actual_qty for ${item.item_code}: ${updatedQty}`)
+        const originalQty = itemDetails.value[index].actual_qty; // Assuming this holds the original qty
+        const updatedQty = originalQty - item.wastage_qty; // Calculate updated quantity after wastage
+        itemDetails.value[index].actual_qty = updatedQty; // Update actual_qty in itemDetails
+        console.log(`Updated actual_qty for ${item.item_code}: ${updatedQty}`);
       }
-    })
+    });
 
-    reconciliationData.items = [] // Clear items after saving
-    displayToast('Stock Updated successfully!', 'success')
+    reconciliationData.items = []; // Clear items after saving
+
+    // Display success message and dismiss it after 3 seconds
+    
+    setTimeout(() => {
+      displayToast('Stock Updated successfully!', 'success'); // Clear the toast message after 3 seconds
+    }, 3000);
   } catch (error) {
-    console.error("Error saving stock reconciliation:", error)
-    displayToast('Error saving stock reconciliation', 'error')
+    console.error("Error saving stock reconciliation:", error);
+    displayToast('Error saving stock reconciliation', 'error');
   }
-}
+};
 
 // Open the item popup
 const openPopup = async (item) => {

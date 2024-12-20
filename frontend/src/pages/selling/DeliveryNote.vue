@@ -90,17 +90,22 @@
       </div>
     </div>
   </div>
-  
+   <!-- Success Message -->
+<!-- <div v-if="successMessage" class="fixed bottom-5 right-5 p-4 bg-green-500 text-white rounded-lg">
+    {{ successMessage }}
+</div> -->
+
 </template>
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import DeliveryNoteForm from './DeliveryNoteForm.vue';
+import { showToast } from '../../utils'
 
+const updateDeliveryNote= ref([]);
 const deliveryNotes = ref([]);
 const isModalOpen = ref(false);
 const selectedNote = ref(null);
-const updateDeliveryNote= ref([]);
-
+const successMessage = ref([]);
 // Filters object to bind to the input field
 const filters = ref({
   name: '',
@@ -265,22 +270,15 @@ const closePopup = () => {
 
 const updateDeliveryNoteHandler = async (updatedNoteData) => {
   try {
-    // Ensure updatedNoteData contains the updated quantities for each item
-    const updatedItems = updatedNoteData.items.map(item => {
-      return {
-        ...item,
-        qty: item.qty // Ensure the updated quantity is sent along
-      };
-    });
-
-    // Replace the old items with the updated items (which includes the updated qty)
+    const updatedItems = updatedNoteData.items.map(item => ({
+      ...item,
+      qty: item.qty,
+    }));
     updatedNoteData.items = updatedItems;
 
-    // Log the updated note data to verify the qty and new fields
     console.log('Updated Note Data before sending to server:', updatedNoteData);
 
     if (selectedNote.value.is_return) {
-      // If it's a Sales Return, directly update the Sales Return document
       const updateResponse = await fetch(
         `/api/resource/Delivery Note/${selectedNote.value.name}`,
         {
@@ -289,9 +287,7 @@ const updateDeliveryNoteHandler = async (updatedNoteData) => {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            ...updatedNoteData, // Send the updated note data along with the updated items
-          }),
+          body: JSON.stringify(updatedNoteData),
         }
       );
 
@@ -300,101 +296,58 @@ const updateDeliveryNoteHandler = async (updatedNoteData) => {
       }
 
       console.log(`Sales Return ${selectedNote.value.name} updated successfully.`);
-      showToast('Sales Return updated successfully!', 'success'); // Show success message
+      showPopup('Update successful!', 'success');
     } else {
-      // Check if a return note already exists for the selected delivery note
-      const checkResponse = await fetch(
-        `/api/resource/Delivery Note?filters=[["return_against", "=", "${selectedNote.value.name}"], ["is_return", "=", 1]]`,
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      if (!checkResponse.ok) {
-        throw new Error(`HTTP error! status: ${checkResponse.status}`);
-      }
-
-      const checkData = await checkResponse.json();
-
-      if (checkData.data.length > 0) {
-        // Return note already exists, update it
-        const existingReturnNote = checkData.data[0];
-
-        const updateResponse = await fetch(
-          `/api/resource/Delivery Note/${existingReturnNote.name}`,
-          {
-            method: 'PUT',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              // Add the additional fields for the return note
-              is_return: true,
-              return_against: selectedNote.value.name,
-              ...updatedNoteData, // Send the updated note data along with the updated items
-            }),
-          }
-        );
-
-        if (!updateResponse.ok) {
-          throw new Error(`HTTP error! status: ${updateResponse.status}`);
-        }
-
-        console.log(`Return note ${existingReturnNote.name} updated successfully.`);
-        showToast('Return note updated successfully!', 'success'); // Show success message
-      } else {
-        // No return note exists, create a new one
-        const newReturnNoteData = {
+      const createResponse = await fetch(`/api/resource/Delivery Note`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           is_return: true,
           return_against: selectedNote.value.name,
-          ...updatedNoteData // Send the new return note data along with updated items
-        };
+          ...updatedNoteData,
+        }),
+      });
 
-        const createResponse = await fetch(`/api/resource/Delivery Note`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newReturnNoteData), // Send the new return note data with updated quantities
-        });
-
-        if (!createResponse.ok) {
-          throw new Error(`HTTP error! status: ${createResponse.status}`);
-        }
-
-        console.log('New return note created successfully.');
-        showToast('New return note created successfully!', 'success'); // Show success message
+      if (!createResponse.ok) {
+        throw new Error(`HTTP error! status: ${createResponse.status}`);
       }
+
+      console.log('New return note created successfully.');
+      showPopup('Return note created successfully!', 'success');
     }
 
-    // Close the popup and refresh the delivery notes
     closePopup();
     fetchDeliveryNotes();
   } catch (error) {
     console.error('Error handling delivery note update:', error);
-    showToast('Error handling delivery note update.', 'error'); // Show error message
+    showPopup('An error occurred. Please try again.', 'error');
   }
 };
 
-// Assuming showToast function is defined elsewhere for notifications
-function showToast(message, type) {
-  // Example implementation of showToast (customize as needed)
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.remove();
-  }, 3000); // Toast will disappear after 3 seconds
-}
+// Function to display a popup message
+const showPopup = (message, type) => {
+  // Remove any existing popup to avoid duplicates
+  const existingPopup = document.querySelector('.popup-message');
+  if (existingPopup) existingPopup.remove();
 
+  // Create a new popup element
+  const popup = document.createElement('div');
+  popup.className = `popup-message fixed top-5 right-5 z-50 px-4 py-2 rounded shadow-lg text-white 
+    ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} transition-opacity duration-300 opacity-100`;
+  popup.innerText = message;
+
+  // Append the popup to the body
+  document.body.appendChild(popup);
+
+  // Automatically hide the popup after 3 seconds
+  setTimeout(() => {
+    popup.classList.add('opacity-0'); // Fades out 
+    setTimeout(() => popup.remove(), 300); // Ensures element is removed after fade-out
+  }, 3000);
+};
 const changePage = (newPage) => {
   if (newPage < 1 || newPage > totalPages.value) return;
   currentPage.value = newPage;
@@ -412,3 +365,5 @@ onMounted(() => {
   fetchDeliveryNotes();
 });
 </script>
+<style>
+</style>

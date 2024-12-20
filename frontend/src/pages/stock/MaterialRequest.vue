@@ -212,16 +212,21 @@ const submitForm = async () => {
   }
 
   try {
-    await saveResource.fetch();
-    successMessage.value = 'Material request saved successfully';
-    showToast('Material request saved successfully', 'success');
-    clearForm();
-  } catch (error) {
-    console.error('Failed to save material request:', error);
-    showToast('Failed to save material request. Please try again.', 'error');
-  }
-};
+  await saveResource.fetch();
+  successMessage.value = 'Material request saved successfully';
+  showToast('Material request saved successfully', 'success');
+  
+  // Clear the success message after 5 seconds
+  setTimeout(() => {
+    successMessage.value = ''; // Clear the success message
+  }, 5000);
 
+  clearForm();
+} catch (error) {
+  console.error('Failed to save material request:', error);
+  showToast('Failed to save material request. Please try again.', 'error');
+}
+};
 const openItemPopup = (item) => {
   currentItem.value = item;
   isPopupOpen.value = true;
